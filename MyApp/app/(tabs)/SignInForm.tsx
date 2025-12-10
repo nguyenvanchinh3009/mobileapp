@@ -11,8 +11,7 @@ import {
   Platform,
 } from 'react-native';
 import { useRouter } from 'expo-router';
-// Sửa import từ lucide-react-native
-import { Mail, Lock, Eye, EyeOff, LogIn, Gamepad2, Crown } from 'lucide-react-native';
+import { Mail, Lock, Eye, EyeOff, LogIn, Gamepad2, Crown, ArrowLeft } from 'lucide-react-native';
 
 export default function SignInForm() {
   const [email, setEmail] = useState('');
@@ -39,7 +38,9 @@ export default function SignInForm() {
     }
 
     console.log('Đăng nhập:', { email, password });
-    Alert.alert('Thành công', 'Chào mừng trở lại! 🎮');
+    
+    // Chuyển thẳng đến game dashboard
+    router.push('/game-dashboard');
   };
 
   return (
@@ -51,6 +52,14 @@ export default function SignInForm() {
         contentContainerStyle={styles.contentContainer}
         showsVerticalScrollIndicator={false}
       >
+        {/* Back Button */}
+        <TouchableOpacity 
+          style={styles.backButton}
+          onPress={() => router.back()}
+        >
+          <ArrowLeft size={24} color="#FFFFFF" />
+        </TouchableOpacity>
+
         {/* Header */}
         <View style={styles.header}>
           <View style={styles.logoContainer}>
@@ -117,7 +126,7 @@ export default function SignInForm() {
           <View style={styles.inputContainer}>
             <View style={styles.passwordHeader}>
               <Text style={styles.label}>Mật khẩu</Text>
-              <TouchableOpacity onPress={() => Alert.alert('Quên mật khẩu')}>
+              <TouchableOpacity onPress={() => router.push('/forgotpassword')}>
                 <Text style={styles.forgotPassword}>Quên mật khẩu?</Text>
               </TouchableOpacity>
             </View>
@@ -224,6 +233,20 @@ const styles = StyleSheet.create({
     padding: 20,
     paddingTop: 60,
     paddingBottom: 40,
+  },
+  backButton: {
+    position: 'absolute',
+    left: 20,
+    top: 60,
+    zIndex: 10,
+    width: 40,
+    height: 40,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(31, 41, 55, 0.8)',
+    borderWidth: 1,
+    borderColor: '#374151',
+    borderRadius: 12,
   },
   header: {
     alignItems: 'center',
