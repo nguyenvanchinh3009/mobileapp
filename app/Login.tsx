@@ -1,10 +1,8 @@
-import { Ionicons } from "@expo/vector-icons";
-import { LinearGradient } from "expo-linear-gradient";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useState } from "react";
 import {
   Alert,
-  ImageBackground,
+  Image,
   Pressable,
   StyleSheet,
   Text,
@@ -39,123 +37,118 @@ export default function Login({
   };
 
   return (
-    <ImageBackground
-      source={require("../assets/images/hinh-nen-anime-06.jpg")}
-      style={{ flex: 1 }}
-      resizeMode="cover"
-    >
-      <View style={styles.overlay}>
-        <View style={styles.card}>
-          <Text style={styles.logo}>⚔️ GAME PORTAL</Text>
-          <Text style={styles.sub}>Enter your legend</Text>
+    <View style={styles.container}>
+      {/* Logo */}
+      <Image
+        source={require("../assets/images/banhmy2.jpg")}
+        style={styles.logo}
+      />
 
-          <View style={styles.inputBox}>
-            <Ionicons name="mail-outline" size={20} color="#7C7CFF" />
-            <TextInput
-              placeholder="Email"
-              placeholderTextColor="#AAA"
-              style={styles.input}
-              value={email}
-              onChangeText={setEmail}
-            />
-          </View>
+      <Text style={styles.title}>Bánh Mì Van Chinh</Text>
+      <Text style={styles.sub}>Đăng nhập để đặt bánh nóng giòn</Text>
 
-          <View style={styles.inputBox}>
-            <Ionicons name="lock-closed-outline" size={20} color="#7C7CFF" />
-            <TextInput
-              placeholder="Password"
-              placeholderTextColor="#AAA"
-              secureTextEntry
-              style={styles.input}
-              value={password}
-              onChangeText={setPassword}
-            />
-          </View>
+      {/* Email */}
+      <TextInput
+        placeholder="Email"
+        placeholderTextColor="#999"
+        style={styles.input}
+        value={email}
+        onChangeText={setEmail}
+      />
 
-          <Pressable onPress={onForgotPassword}>
-            <Text style={styles.forgot}>Forgot password?</Text>
-          </Pressable>
+      {/* Password */}
+      <TextInput
+        placeholder="Mật khẩu"
+        placeholderTextColor="#999"
+        secureTextEntry
+        style={styles.input}
+        value={password}
+        onChangeText={setPassword}
+      />
 
-          <Pressable onPress={handleLogin}>
-            <LinearGradient colors={["#7C7CFF", "#5B5BFF"]} style={styles.btn}>
-              <Text style={styles.btnText}>
-                {loading ? "Loading..." : "LOGIN"}
-              </Text>
-            </LinearGradient>
-          </Pressable>
+      <Pressable onPress={onForgotPassword}>
+        <Text style={styles.forgot}>Quên mật khẩu?</Text>
+      </Pressable>
 
-          <Pressable onPress={onGoRegister}>
-            <Text style={styles.register}>
-              Don’t have an account? Create one
-            </Text>
-          </Pressable>
-        </View>
-      </View>
-    </ImageBackground>
+      {/* Login */}
+      <Pressable style={styles.btn} onPress={handleLogin}>
+        <Text style={styles.btnText}>
+          {loading ? "Đang đăng nhập..." : "ĐĂNG NHẬP"}
+        </Text>
+      </Pressable>
+
+      {/* Register */}
+      <Pressable onPress={onGoRegister}>
+        <Text style={styles.register}>
+          Chưa có tài khoản? <Text style={{ color: "#F97316" }}>Đăng ký</Text>
+        </Text>
+      </Pressable>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  overlay: {
+  container: {
     flex: 1,
-    backgroundColor: "rgba(0,0,0,0.45)",
+    backgroundColor: "#FFF7ED",
     justifyContent: "center",
     padding: 24,
   },
-  card: {
-    backgroundColor: "rgba(20,20,40,0.9)",
-    borderRadius: 28,
-    padding: 28,
-    borderWidth: 1,
-    borderColor: "rgba(124,124,255,0.5)",
-  },
+
   logo: {
-    textAlign: "center",
-    fontSize: 32,
-    fontWeight: "900",
-    color: "#7C7CFF",
-    marginBottom: 4,
+    width: 120,
+    height: 120,
+    alignSelf: "center",
+    marginBottom: 16,
   },
+
+  title: {
+    textAlign: "center",
+    fontSize: 26,
+    fontWeight: "900",
+    color: "#F97316",
+  },
+
   sub: {
     textAlign: "center",
-    color: "#9CA3AF",
-    marginBottom: 28,
+    color: "#666",
+    marginBottom: 32,
   },
-  inputBox: {
-    flexDirection: "row",
-    alignItems: "center",
-    borderWidth: 1.5,
-    borderColor: "#7C7CFF",
-    borderRadius: 16,
-    padding: 14,
-    marginBottom: 16,
-    backgroundColor: "rgba(255,255,255,0.05)",
-  },
+
   input: {
-    flex: 1,
-    marginLeft: 10,
-    color: "#fff",
+    backgroundColor: "#fff",
+    borderRadius: 12,
+    padding: 14,
     fontSize: 16,
+    borderWidth: 1,
+    borderColor: "#FED7AA",
+    marginBottom: 16,
   },
+
   forgot: {
-    color: "#7C7CFF",
     textAlign: "right",
+    color: "#F97316",
     marginBottom: 24,
+    fontWeight: "600",
   },
+
   btn: {
-    paddingVertical: 16,
-    borderRadius: 20,
+    backgroundColor: "#F97316",
+    padding: 16,
+    borderRadius: 14,
     alignItems: "center",
   },
+
   btnText: {
     color: "#fff",
     fontSize: 16,
-    fontWeight: "900",
-    letterSpacing: 1,
+    fontWeight: "800",
   },
+
   register: {
-    marginTop: 20,
     textAlign: "center",
-    color: "#7C7CFF",
+    marginTop: 20,
+    color: "#444",
+    fontWeight: "600",
   },
 });

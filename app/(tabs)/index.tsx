@@ -16,10 +16,14 @@ export default function App() {
   const [currentScreen, setCurrentScreen] = useState<Screen>('login');
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
+  // 👉 Điều hướng
   const handleForgotPassword = () => setCurrentScreen('forgot-password');
   const handleBackToLogin = () => setCurrentScreen('login');
   const handleGoRegister = () => setCurrentScreen('register');
+  const handleChangePassword = () => setCurrentScreen('change-password');
+  const handleBackToHome = () => setCurrentScreen('home');
 
+  // 👉 Xử lý đăng nhập / đăng xuất
   const handleLogin = () => {
     setIsLoggedIn(true);
     setCurrentScreen('home');
@@ -30,13 +34,12 @@ export default function App() {
     setCurrentScreen('login');
   };
 
-  const handleChangePassword = () => setCurrentScreen('change-password');
-  const handleBackToHome = () => setCurrentScreen('home');
-
+  // 👉 Nếu đã đăng nhập
   if (isLoggedIn) {
     if (currentScreen === 'change-password') {
       return <ChangePassword onBack={handleBackToHome} />;
     }
+
     return (
       <Home
         onLogout={handleLogout}
@@ -45,6 +48,7 @@ export default function App() {
     );
   }
 
+  // 👉 Nếu chưa đăng nhập (hiển thị các màn hình con)
   if (currentScreen === 'forgot-password') {
     return <ForgotPassword onBack={handleBackToLogin} />;
   }
@@ -53,6 +57,7 @@ export default function App() {
     return <Register onBackToLogin={handleBackToLogin} />;
   }
 
+  // 👉 Mặc định là trang đăng nhập
   return (
     <Login
       onForgotPassword={handleForgotPassword}

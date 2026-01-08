@@ -43,17 +43,17 @@ export default function Register({ onBackToLogin }: any) {
 
   return (
     <ImageBackground
-      source={require("../assets/images/hinh-nen-anime-06.jpg")}
+      source={require("../assets/images/banhmi-bg.jpg")}
       style={{ flex: 1 }}
       resizeMode="cover"
     >
       <View style={styles.overlay}>
         <View style={styles.card}>
-          <Text style={styles.title}>🎮 Create Game Account</Text>
-          <Text style={styles.sub}>Join the world of heroes</Text>
+          <Text style={styles.title}>🥖 TẠO TÀI KHOẢN MUA BÁNH</Text>
+          <Text style={styles.sub}>Nhập thông tin để đặt bánh mỗi ngày</Text>
 
           <View style={styles.inputBox}>
-            <Ionicons name="mail-outline" size={20} color="#7C7CFF" />
+            <Ionicons name="mail-outline" size={20} color="#F59E0B" />
             <TextInput
               placeholder="Email"
               placeholderTextColor="#AAA"
@@ -64,9 +64,9 @@ export default function Register({ onBackToLogin }: any) {
           </View>
 
           <View style={styles.inputBox}>
-            <Ionicons name="lock-closed-outline" size={20} color="#7C7CFF" />
+            <Ionicons name="lock-closed-outline" size={20} color="#F59E0B" />
             <TextInput
-              placeholder="Password"
+              placeholder="Mật khẩu"
               placeholderTextColor="#AAA"
               secureTextEntry
               style={styles.input}
@@ -76,9 +76,9 @@ export default function Register({ onBackToLogin }: any) {
           </View>
 
           <View style={styles.inputBox}>
-            <Ionicons name="shield-checkmark-outline" size={20} color="#7C7CFF" />
+            <Ionicons name="shield-checkmark-outline" size={20} color="#F59E0B" />
             <TextInput
-              placeholder="Confirm password"
+              placeholder="Nhập lại mật khẩu"
               placeholderTextColor="#AAA"
               secureTextEntry
               style={styles.input}
@@ -88,15 +88,15 @@ export default function Register({ onBackToLogin }: any) {
           </View>
 
           <Pressable onPress={handleRegister}>
-            <LinearGradient colors={["#7C7CFF", "#5B5BFF"]} style={styles.btn}>
+            <LinearGradient colors={["#F59E0B", "#F97316"]} style={styles.btn}>
               <Text style={styles.btnText}>
-                {loading ? "Creating..." : "Create Account"}
+                {loading ? "Đang tạo..." : "TẠO TÀI KHOẢN"}
               </Text>
             </LinearGradient>
           </Pressable>
 
           <Pressable onPress={onBackToLogin}>
-            <Text style={styles.back}>← Back to Login</Text>
+            <Text style={styles.back}>← Quay lại đăng nhập</Text>
           </Pressable>
         </View>
       </View>
@@ -107,33 +107,33 @@ export default function Register({ onBackToLogin }: any) {
 const styles = StyleSheet.create({
   overlay: {
     flex: 1,
-    backgroundColor: "rgba(0,0,0,0.45)",
+    backgroundColor: "rgba(0,0,0,0.5)",
     justifyContent: "center",
     padding: 24,
   },
   card: {
-    backgroundColor: "rgba(20,20,40,0.9)",
+    backgroundColor: "rgba(30,20,10,0.9)",
     borderRadius: 28,
     padding: 24,
     borderWidth: 1,
-    borderColor: "rgba(124,124,255,0.5)",
+    borderColor: "#F59E0B",
   },
   title: {
-    fontSize: 26,
-    fontWeight: "800",
+    fontSize: 24,
+    fontWeight: "900",
     textAlign: "center",
-    color: "#fff",
+    color: "#F59E0B",
   },
   sub: {
     textAlign: "center",
-    color: "#9CA3AF",
+    color: "#FDE68A",
     marginBottom: 24,
   },
   inputBox: {
     flexDirection: "row",
     alignItems: "center",
     borderWidth: 1.5,
-    borderColor: "#7C7CFF",
+    borderColor: "#F59E0B",
     borderRadius: 16,
     padding: 14,
     marginBottom: 16,
@@ -152,14 +152,14 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   btnText: {
-    color: "#fff",
+    color: "#000",
     fontSize: 16,
-    fontWeight: "800",
+    fontWeight: "900",
     letterSpacing: 1,
   },
   back: {
     marginTop: 20,
     textAlign: "center",
-    color: "#7C7CFF",
+    color: "#FBBF24",
   },
 });
