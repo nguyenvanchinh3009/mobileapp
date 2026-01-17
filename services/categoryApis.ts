@@ -1,15 +1,16 @@
-import { getDatabase, ref, get } from "firebase/database";
-import { app } from "../firebaseConfig";
+import { onValue, ref } from "firebase/database";
+import { db } from "../firebaseConfig";
 
-const db = getDatabase(app);
-
-export const getAllCategories = async () => {
-  const snapshot = await get(ref(db, "categories"));
-
-  if (!snapshot.exists()) return [];
-
-  return Object.entries(snapshot.val()).map(([key, value]: any) => ({
-    key,
-    ...value
-  }));
+export const getAllCategories = (): Promise<any[]> => {
+  return new Promise((resolve) => {
+    onValue(ref(db, "categories"), (snapshot) => {
+      const data = snapshot.val() || {};
+      resolve(
+        Object.keys(data).map((key) => ({
+          key,
+          ...data[key],
+        }))
+      );
+    });
+  });
 };

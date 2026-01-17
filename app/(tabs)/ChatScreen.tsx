@@ -7,19 +7,30 @@ import {
   TextInput,
   View,
 } from "react-native";
-import { subscribeMessages, sendMessage } from "@/services/chatApis";
+import { getAuth } from "firebase/auth";
+import { sendUserMessage, subscribeUserMessages } from "@/services/chatApis";
 
 export default function ChatScreen() {
   const [messages, setMessages] = useState<any[]>([]);
   const [text, setText] = useState("");
+  const [uid, setUid] = useState<string | null>(null);
 
   useEffect(() => {
-    return subscribeMessages(setMessages);
+    const auth = getAuth();
+    const unsub = auth.onAuthStateChanged((u) => {
+      if (u) setUid(u.uid);
+    });
+    return unsub;
   }, []);
 
-  const handleSend = () => {
+  useEffect(() => {
+    if (!uid) return;
+    return subscribeUserMessages(uid, setMessages);
+  }, [uid]);
+
+  const send = () => {
     if (!text.trim()) return;
-    sendMessage(text, "user");
+    sendUserMessage(text);
     setText("");
   };
 
@@ -27,7 +38,7 @@ export default function ChatScreen() {
     <View style={styles.container}>
       <FlatList
         data={messages}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(i) => i.id}
         renderItem={({ item }) => (
           <View
             style={[
@@ -40,15 +51,15 @@ export default function ChatScreen() {
         )}
       />
 
-      <View style={styles.inputBar}>
+      <View style={styles.row}>
         <TextInput
           value={text}
           onChangeText={setText}
-          placeholder="Nhập tin nhắn..."
           style={styles.input}
+          placeholder="Nhập tin nhắn..."
         />
-        <Pressable style={styles.btn} onPress={handleSend}>
-          <Text style={{ color: "#fff", fontWeight: "700" }}>Gửi</Text>
+        <Pressable style={styles.btn} onPress={send}>
+          <Text style={{ color: "#fff" }}>Gửi</Text>
         </Pressable>
       </View>
     </View>
@@ -56,45 +67,17 @@ export default function ChatScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#FFF7ED",
-    padding: 10,
-  },
-  bubble: {
-    padding: 10,
-    borderRadius: 12,
-    marginVertical: 6,
-    maxWidth: "75%",
-  },
-  user: {
-    alignSelf: "flex-end",
-    backgroundColor: "#FDBA74",
-  },
-  shop: {
-    alignSelf: "flex-start",
-    backgroundColor: "#E5E7EB",
-  },
-  inputBar: {
-    flexDirection: "row",
-    alignItems: "center",
-    padding: 8,
-    backgroundColor: "#fff",
-    borderTopWidth: 1,
-    borderColor: "#eee",
-  },
-  input: {
-    flex: 1,
-    backgroundColor: "#F3F4F6",
-    borderRadius: 20,
-    paddingHorizontal: 12,
-    paddingVertical: 8,
-    marginRight: 8,
-  },
+  container: { flex: 1, padding: 10 },
+  bubble: { padding: 10, marginVertical: 5, borderRadius: 10, maxWidth: "70%" },
+  user: { alignSelf: "flex-end", backgroundColor: "#FDBA74" },
+  shop: { alignSelf: "flex-start", backgroundColor: "#E5E7EB" },
+  row: { flexDirection: "row" },
+  input: { flex: 1, borderWidth: 1, padding: 10, borderRadius: 20 },
   btn: {
     backgroundColor: "#F97316",
-    paddingHorizontal: 16,
-    paddingVertical: 10,
+    paddingHorizontal: 15,
+    justifyContent: "center",
     borderRadius: 20,
+    marginLeft: 5,
   },
 });

@@ -1,15 +1,29 @@
-import { getDatabase, ref, get } from "firebase/database";
-import { app } from "../firebaseConfig";
+import { onValue, ref } from "firebase/database";
+import { db } from "../firebaseConfig";
 
-const db = getDatabase(app);
+export const getAllProducts = (): Promise<any[]> => {
+  return new Promise((resolve) => {
+    onValue(ref(db, "products"), (snapshot) => {
+      const data = snapshot.val() || {};
+      resolve(
+        Object.keys(data).map((key) => ({
+          key,
+          ...data[key],
+        }))
+      );
+    });
+  });
+};
 
-export const getAllProducts = async () => {
-  const snapshot = await get(ref(db, "products"));
-
-  if (!snapshot.exists()) return [];
-
-  return Object.entries(snapshot.val()).map(([key, value]: any) => ({
-    key,        // 🔥 dùng Firebase key
-    ...value
-  }));
+export const getProductsByCategory = (categoryId: string): Promise<any[]> => {
+  return new Promise((resolve) => {
+    onValue(ref(db, "products"), (snapshot) => {
+      const data = snapshot.val() || {};
+      resolve(
+        Object.keys(data)
+          .map((key) => ({ key, ...data[key] }))
+          .filter((p) => p.categoryId === categoryId)
+      );
+    });
+  });
 };
