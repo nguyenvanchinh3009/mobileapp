@@ -1,0 +1,28 @@
+{
+  "products": {
+    "1": {
+      "name": "Bánh mì thịt",
+      "price": 25000,
+      "image": "https://firebasestorage.googleapis.com/v0/b/nvchinh-538be.appspot.com/o/banhmithit.jpg?alt=media",
+      "description": "Bánh mì thịt thơm ngon, nóng hổi"
+    },
+    "2": {
+      "name": "Bánh mì chay",
+      "price": 20000,
+      "image": "https://firebasestorage.googleapis.com/v0/b/nvchinh-538be.appspot.com/o/banhmichay.jpg?alt=media",
+      "description": "Bánh mì chay ngon, đầy đủ rau củ"
+    },
+    "3": {
+      "name": "Nước suối",
+      "price": 10000,
+      "image": "https://firebasestorage.googleapis.com/v0/b/nvchinh-538be.appspot.com/o/nuocsuoi.jpg?alt=media",
+      "description": "Nước suối tinh khiết, chai 500ml"
+    },
+    "4": {
+      "name": "Nước ngọt",
+      "price": 15000,
+      "image": "https://firebasestorage.googleapis.com/v0/b/nvchinh-538be.appspot.com/o/nuocngot.jpg?alt=media",
+      "description": "Nước ngọt có gas, chai 330ml"
+    }
+  }
+}
